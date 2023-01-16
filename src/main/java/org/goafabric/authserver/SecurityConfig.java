@@ -61,27 +61,31 @@ public class SecurityConfig {
                 .build();
     }
 
-    //dynamic user defined props
+    /* dynamic user defined props */
 
     @Bean
     public AuthorizationServerSettings authorizationServerSettings(@Value("${spring.security.base-endpoint}") String baseEndpoint) {
         //return AuthorizationServerSettings.builder().build();
         return AuthorizationServerSettings.builder()
-                .authorizationEndpoint(baseEndpoint + "/authorize")
+                .authorizationEndpoint(baseEndpoint + "/auth")
                 .tokenEndpoint(baseEndpoint + "/token")
-                .jwkSetEndpoint(baseEndpoint + "/jwks")
+                .jwkSetEndpoint(baseEndpoint + "/certs")
                 .tokenRevocationEndpoint(baseEndpoint + "/revoke")
                 .tokenIntrospectionEndpoint(baseEndpoint + "/introspect")
                 .oidcClientRegistrationEndpoint("/connect/register")
                 .oidcUserInfoEndpoint(baseEndpoint + "/userinfo")
                 .build();
-                
     }
 
     @Bean
     public RegisteredClientRepository registeredClientRepository() {
+        return new InMemoryRegisteredClientRepository(
+                createClient("oauth2-proxy"));
+    }
+
+    private static RegisteredClient createClient(String clientId) {
         RegisteredClient registeredClient = RegisteredClient.withId(UUID.randomUUID().toString())
-                .clientId("oauth2-proxy")
+                .clientId(clientId)
                 .clientSecret("{noop}none")
                 .clientAuthenticationMethod(ClientAuthenticationMethod.CLIENT_SECRET_BASIC)
                 .authorizationGrantType(AuthorizationGrantType.AUTHORIZATION_CODE)
@@ -89,41 +93,28 @@ public class SecurityConfig {
                 .authorizationGrantType(AuthorizationGrantType.CLIENT_CREDENTIALS)
                 //allowed redirect uris of your CLIENT, localhost ist forbidden in favour of 127.0.0.1, dns names otherwise work ...
                 .redirectUri("http://127.0.0.1:8081/")
-                .redirectUri("http://127.0.0.1:8081/authorized")
                 .redirectUri("http://127.0.0.1:8080/oauth2/callback")
                 .redirectUri("http://127.0.0.1:50900/callees/sayMyName")
                 .redirectUri("http://127.0.0.1:50900/login/oauth2/code/keycloak")
-
                 .scope(OidcScopes.OPENID)
                 .scope(OidcScopes.PROFILE)
                 .scope(OidcScopes.EMAIL)
                 .build();
-
-        return new InMemoryRegisteredClientRepository(registeredClient);
+        return registeredClient;
     }
 
     @Bean
     public UserDetailsService userDetailsService() {
-        /*
-        Map<String, Object > map = new HashMap<>();
-        map.put("email", "user@user1.de");
-        OAuth2UserAuthority authority = new OAuth2UserAuthority(map);
-
-         */
-
         UserDetails userDetails = User.withDefaultPasswordEncoder()
                 .username("user1")
                 .password("user1")
                 .roles("USER", "standard")
-                //.authorities(authority)
                 .build();
-
-
         return new InMemoryUserDetailsManager(userDetails);
     }
 
 
-    //json web key stuff
+    /* json web key stuff */
     @Bean
     public JwtDecoder jwtDecoder(JWKSource<SecurityContext> jwkSource) {
         return OAuth2AuthorizationServerConfiguration.jwtDecoder(jwkSource);
