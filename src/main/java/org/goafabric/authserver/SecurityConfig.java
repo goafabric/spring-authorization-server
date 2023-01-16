@@ -92,6 +92,7 @@ public class SecurityConfig {
                 .redirectUri("http://127.0.0.1:8081/authorized")
                 .redirectUri("http://127.0.0.1:8080/oauth2/callback")
                 .redirectUri("http://127.0.0.1:50900/callees/sayMyName")
+                .redirectUri("http://127.0.0.1:50900/login/oauth2/code/keycloak")
 
                 .scope(OidcScopes.OPENID)
                 .scope(OidcScopes.PROFILE)

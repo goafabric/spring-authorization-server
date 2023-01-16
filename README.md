@@ -15,3 +15,8 @@ curl -v -s -X POST http://127.0.0.1:8081/oauth2/token \
 -d "client_id=oauth2-proxy" \
 -d "scope=openid" \
 | jq --raw-output '.access_token'
+
+# doc 
+
+https://www.ibm.com/docs/en/was-liberty/base?topic=liberty-invoking-authorization-endpoint-openid-connect
+https://developers.onelogin.com/openid-connect
