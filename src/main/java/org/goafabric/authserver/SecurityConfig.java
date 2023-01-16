@@ -114,7 +114,7 @@ public class SecurityConfig {
         UserDetails userDetails = User.withDefaultPasswordEncoder()
                 .username("user1")
                 .password("user1")
-                .roles("USER")
+                .roles("USER", "standard")
                 //.authorities(authority)
                 .build();
 
