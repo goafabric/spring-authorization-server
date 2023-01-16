@@ -20,3 +20,5 @@ curl -v -s -X POST http://127.0.0.1:8081/oauth2/token \
 
 https://www.ibm.com/docs/en/was-liberty/base?topic=liberty-invoking-authorization-endpoint-openid-connect
 https://developers.onelogin.com/openid-connect
+
+http://localhost:30200/oidc/realms/tenant-0/.well-known/openid-configuration
