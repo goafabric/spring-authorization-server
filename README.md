@@ -7,7 +7,7 @@ http://127.0.0.1:9000/oauth2/authorize?response_type=code&client_id=messaging-cl
 # stuff
 curl -v -s -X POST http://127.0.0.1:30200/oauth2/token \
 -H "Content-Type: application/x-www-form-urlencoded" \
--H "Authorization: BASIC YmFzZQ==" \
+-H "Authorization: BASIC bm9uZQ==" \
 -d "username=user1" \
 -d "password=user1" \
 -d "grant_type=password" \
