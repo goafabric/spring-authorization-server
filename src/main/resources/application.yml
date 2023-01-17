@@ -1,6 +1,6 @@
 #application
 server:
-  port: 8081
+  port: 30200
   tomcat.threads.max: 20
 
 #monitoring
