@@ -19,3 +19,5 @@ logging:
     org.springframework.security: trace
 
 spring.security.base-endpoint: /oauth2
+
+spring.security.identities: "user1:user1,user2:user2,user3:user3"

@@ -6,6 +6,7 @@ import com.nimbusds.jose.jwk.source.ImmutableJWKSet;
 import com.nimbusds.jose.jwk.source.JWKSource;
 import com.nimbusds.jose.proc.SecurityContext;
 import lombok.SneakyThrows;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -35,9 +36,13 @@ import java.security.KeyPairGenerator;
 import java.security.NoSuchAlgorithmException;
 import java.security.interfaces.RSAPrivateKey;
 import java.security.interfaces.RSAPublicKey;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.UUID;
 
 @Configuration
+@Slf4j
 public class SecurityConfig {
 
     @Bean
@@ -104,12 +109,18 @@ public class SecurityConfig {
     }
 
     @Bean
-    public UserDetailsService userDetailsService() {
-        UserDetails userDetails = User.withDefaultPasswordEncoder()
-                .username("user1")
-                .password("user1")
-                .roles("USER", "standard")
-                .build();
+
+    public UserDetailsService userDetailsService(@Value("${spring.security.identities:}") String identities) {
+        List<UserDetails> userDetails = new ArrayList<>();
+        Arrays.asList(identities.split(",")).forEach(identity -> {
+            userDetails.add(
+                User.withDefaultPasswordEncoder()
+                        .username(identity.split(":")[0])
+                        .password(identity.split(":")[1])
+                        .roles("USER", "standard")
+                        .build()
+                );
+        });
         return new InMemoryUserDetailsManager(userDetails);
     }
 
