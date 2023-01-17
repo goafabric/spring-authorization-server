@@ -39,7 +39,10 @@ dependencies {
 	//web
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 
-	//crosscuting
+	//monitoring
+	implementation 'org.springframework.boot:spring-boot-starter-actuator'
+
+	//security
 	implementation 'org.springframework.boot:spring-boot-starter-security'
 	implementation "org.springframework.security:spring-security-oauth2-authorization-server:1.0.0"
 	implementation "org.springframework.security:spring-security-oauth2-resource-server"

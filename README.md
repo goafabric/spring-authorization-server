@@ -1,7 +1,5 @@
 # openid
-http://127.0.0.1:8081/oauth2/authorize?client_id=oauth2-proxy&response_type=code&scope=openid&state=state&redirect_uri=http://127.0.0.1:8081/
-
-http://127.0.0.1:8081/oauth2/authorize?client_id=oauth2-proxy&response_type=code&scope=openid&state=state&redirect_uri=http://127.0.0.1:8081/login/oauth2/code/oauth2-proxy
+http://127.0.0.1:30200/oauth2/auth?client_id=oauth2-proxy&response_type=code&scope=openid&state=state&redirect_uri=http://127.0.0.1:30200/
 
 http://127.0.0.1:9000/oauth2/authorize?response_type=code&client_id=messaging-client&scope=openid&state=state&redirect_uri=http://127.0.0.1:9000/login/oauth2/code/messaging-client-oidc
                                 
