@@ -12,6 +12,8 @@ docker run --pull always --name spring-auth-server --rm -p30200:30200 goafabric/
 
 # endpoint
 http://127.0.0.1:30200/oauth2/auth?client_id=oauth2-proxy&response_type=code&scope=openid&state=state&redirect_uri=http://127.0.0.1:30200/
+
+http://localhost:30200/oauth2/auth?client_id=oauth2-proxy&response_type=code&scope=openid&state=state&redirect_uri=http://localhost:30200/
                                 
 
 

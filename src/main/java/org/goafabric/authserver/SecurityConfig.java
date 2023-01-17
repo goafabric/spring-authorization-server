@@ -98,6 +98,8 @@ public class SecurityConfig {
                 .authorizationGrantType(AuthorizationGrantType.CLIENT_CREDENTIALS)
                 //allowed redirect uris of your CLIENT, localhost ist forbidden in favour of 127.0.0.1, dns names otherwise work ...
                 .redirectUri("http://127.0.0.1:30200/")
+                .redirectUri("http://localhost:30200/")
+
                 .redirectUri("http://127.0.0.1:8080/oauth2/callback")
                 .redirectUri("http://127.0.0.1:50900/callees/sayMyName")
                 .redirectUri("http://127.0.0.1:50900/login/oauth2/code/keycloak")
