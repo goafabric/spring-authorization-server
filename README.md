@@ -1,23 +1,17 @@
-# openid
-http://127.0.0.1:30200/oauth2/auth?client_id=oauth2-proxy&response_type=code&scope=openid&state=state&redirect_uri=http://127.0.0.1:30200/
+# docker compose
+go to /src/deploy/docker and do "./stack up" or "./stack up -native"
 
-http://127.0.0.1:9000/oauth2/authorize?response_type=code&client_id=messaging-client&scope=openid&state=state&redirect_uri=http://127.0.0.1:9000/login/oauth2/code/messaging-client-oidc
+# run jvm multi image
+docker run --pull always --name callee-service --rm -p50900:50900 goafabric/callee-service:3.0.1-oidc-SNAPSHOT
+
+# run native image
+docker run --pull always --name callee-service-native --rm -p50900:50900 goafabric/callee-service-native:3.0.1-oidc-SNAPSHOT -Xmx32m
+
+# run native image arm
+docker run --pull always --name callee-service-native-arm64v8 --rm -p50900:50900 goafabric/callee-service-native-arm64v8:3.0.1-oidc-SNAPSHOT -Xmx32m
+
+# endpoint
+http://127.0.0.1:30200/oauth2/auth?client_id=oauth2-proxy&response_type=code&scope=openid&state=state&redirect_uri=http://127.0.0.1:30200/
                                 
 
-# stuff
-curl -v -s -X POST http://127.0.0.1:30200/oauth2/token \
--H "Content-Type: application/x-www-form-urlencoded" \
--H "Authorization: BASIC bm9uZQ==" \
--d "username=user1" \
--d "password=user1" \
--d "grant_type=password" \
--d "client_id=oauth2-proxy" \
--d "scope=openid" \
-| jq --raw-output '.access_token'
 
-# doc 
-
-https://www.ibm.com/docs/en/was-liberty/base?topic=liberty-invoking-authorization-endpoint-openid-connect
-https://developers.onelogin.com/openid-connect
-
-http://localhost:30200/oidc/realms/tenant-0/.well-known/openid-configuration
