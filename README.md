@@ -5,9 +5,10 @@ http://127.0.0.1:9000/oauth2/authorize?response_type=code&client_id=messaging-cl
                                 
 
 # stuff
-curl -v -s -X POST http://127.0.0.1:8081/oauth2/token \
+curl -v -s -X POST http://127.0.0.1:30200/oauth2/token \
 -H "Content-Type: application/x-www-form-urlencoded" \
--d "username=user1" \
+-H "Authorization: BASICYmFzZQ==" \
+-d "username=user1" \            
 -d "password=user1" \
 -d "grant_type=password" \
 -d "client_id=oauth2-proxy" \
