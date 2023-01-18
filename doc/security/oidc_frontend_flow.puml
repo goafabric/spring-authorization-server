@@ -4,13 +4,13 @@
 autonumber
 
 participant Frontend #lightblue
-participant OIDC_Frontend #lightblue
+participant OIDC_Frontend_Auth #lightblue
 participant Backend #lightblue
 participant OIDC_Token_Endpoint #lightblue
 
 Frontend -> Frontend : Enter Credentials
-Frontend -> OIDC_Frontend : Credentials
-OIDC_Frontend -> Frontend : Response : One Time Code
+Frontend -> OIDC_Frontend_Auth : Credentials
+OIDC_Frontend_Auth -> Frontend : Response : One Time Code
 Frontend -> Backend  : One Time Code via Redirect_URI
 Backend ->  OIDC_Token_Endpoint : One Time Code
 OIDC_Token_Endpoint -> Backend : Response : JWT
