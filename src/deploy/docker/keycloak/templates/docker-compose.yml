@@ -24,6 +24,7 @@ services:
       - KC_PROXY=edge
       - KC_HOSTNAME_STRICT=false
       - KC_HOSTNAME_STRICT_HTTPS=false
+#      - KC_HOSTNAME=localhost
 
       #database
       - KC_DB=postgres

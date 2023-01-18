@@ -42,3 +42,8 @@ curl -v -s -X POST http://127.0.0.1:30200/oauth2/token \
 -d "client_id=oauth2-proxy" \
 -d "scope=openid" \
 | jq --raw-output '.access_token'
+
+# discovery 
+
+curl http://localhost:30200/.well-known/openid-configuration
+curl http://localhost:30200/oidc/realms/tenant-0/.well-known/openid-configuration
