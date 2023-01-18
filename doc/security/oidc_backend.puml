@@ -4,8 +4,8 @@
 autonumber
 
 participant Client #lightblue
-participant OIDC_Token_Endpoint #lightblue
 participant Backend #lightblue
+participant OIDC_Token_Endpoint #lightblue
 
 Client -> OIDC_Token_Endpoint : Credentials
 OIDC_Token_Endpoint -> Client : Response : JWT

@@ -4,8 +4,8 @@
 autonumber
 
 participant Frontend #lightblue
-participant Backend #lightblue
 participant OIDC_Frontend #lightblue
+participant Backend #lightblue
 participant OIDC_Token_Endpoint #lightblue
 
 Frontend -> Frontend : Enter Credentials
