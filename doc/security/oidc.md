@@ -33,12 +33,15 @@ https://www.ibm.com/docs/en/was-liberty/base?topic=liberty-invoking-authorizatio
 https://developers.onelogin.com/openid-connect
 
 # spring auth server not working request
+export access_token=$(\
 curl -v -s -X POST http://127.0.0.1:30200/oauth2/token \
 -H "Content-Type: application/x-www-form-urlencoded" \
--H "Authorization: BASIC bm9uZQ==" \
--d "username=user1" \
--d "password=user1" \
--d "grant_type=password" \
+-H "Authorization: BASIC b2F1dGgyLXByb3h5Om5vbmU=" \
+-d "grant_type=client_credentials" \
 -d "client_id=oauth2-proxy" \
 -d "scope=openid" \
 | jq --raw-output '.access_token'
+)
+
+# userinfo
+curl -v -H "Authorization: Bearer $access_token" "http://127.0.0.1:30200/oauth2/userinfo"
