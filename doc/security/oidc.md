@@ -42,6 +42,7 @@ curl -v -s -X POST http://127.0.0.1:30200/oauth2/token \
 -d "scope=openid" \
 | jq --raw-output '.access_token'
 )
+echo access token is: $access_token
 
 # userinfo
 curl -v -H "Authorization: Bearer $access_token" "http://127.0.0.1:30200/oauth2/userinfo"
