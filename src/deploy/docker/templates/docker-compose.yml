@@ -26,8 +26,8 @@ services:
       OAUTH2_PROXY_CLIENT_ID: "oauth2-proxy"
       OAUTH2_PROXY_SKIP_OIDC_DISCOVERY: "true"
 
-#      OAUTH2_PROXY_REDIRECT_URL: "http://localhost:8080/oauth2/callback"
-      OAUTH2_PROXY_REDIRECT_URL: "http://localhost:4180/oauth2/callback"
+      OAUTH2_PROXY_REDIRECT_URL: "http://localhost:8080/oauth2/callback"
+#      OAUTH2_PROXY_REDIRECT_URL: "http://localhost:4180/oauth2/callback"
 
       OAUTH2_PROXY_OIDC_ISSUER_URL: "http://localhost:30200"
       OAUTH2_PROXY_LOGIN_URL: "http://localhost:30200/oauth2/auth"
@@ -48,6 +48,7 @@ services:
     restart: 'no'
     ports:
       - "30200:30200"
+    command: ["-Xmx${_Values_resources_requests_memory}"]
     environment:
       spring.security.authorization.base-uri: "/oauth2"
       spring.security.authorization.clients: "oauth2-proxy:none"
