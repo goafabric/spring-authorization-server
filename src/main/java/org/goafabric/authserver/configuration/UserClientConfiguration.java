@@ -26,20 +26,6 @@ import java.util.UUID;
 public class UserClientConfiguration {
 
     @Bean
-    public AuthorizationServerSettings authorizationServerSettings(@Value("${spring.security.authorisation.base-uri}") String baseEndpoint) {
-        //return AuthorizationServerSettings.builder().build();
-        return AuthorizationServerSettings.builder()
-                .authorizationEndpoint(baseEndpoint + "/auth")
-                .tokenEndpoint(baseEndpoint + "/token")
-                .jwkSetEndpoint(baseEndpoint + "/certs")
-                .tokenRevocationEndpoint(baseEndpoint + "/revoke")
-                .tokenIntrospectionEndpoint(baseEndpoint + "/introspect")
-                .oidcClientRegistrationEndpoint("/connect/register")
-                .oidcUserInfoEndpoint(baseEndpoint + "/userinfo")
-                .build();
-    }
-
-    @Bean
     public RegisteredClientRepository registeredClientRepository() {
         return new InMemoryRegisteredClientRepository(
                 createClient("oauth2-proxy"));
@@ -64,7 +50,7 @@ public class UserClientConfiguration {
     }
 
     @Bean
-    public UserDetailsService userDetailsService(@Value("${spring.security.authorisation.identities:}") String identities) {
+    public UserDetailsService userDetailsService(@Value("${spring.security.authorization.identities:}") String identities) {
         List<UserDetails> userDetails = new ArrayList<>();
         Arrays.asList(identities.split(",")).forEach(identity -> {
             userDetails.add(
@@ -76,6 +62,19 @@ public class UserClientConfiguration {
                 );
         });
         return new InMemoryUserDetailsManager(userDetails);
+    }
+
+    @Bean
+    public AuthorizationServerSettings authorizationServerSettings(@Value("${spring.security.authorization.base-uri}") String baseEndpoint) {
+        return AuthorizationServerSettings.builder()
+                .authorizationEndpoint(baseEndpoint + "/auth")
+                .tokenEndpoint(baseEndpoint + "/token")
+                .jwkSetEndpoint(baseEndpoint + "/certs")
+                .tokenRevocationEndpoint(baseEndpoint + "/revoke")
+                .tokenIntrospectionEndpoint(baseEndpoint + "/introspect")
+                .oidcClientRegistrationEndpoint("/connect/register")
+                .oidcUserInfoEndpoint(baseEndpoint + "/userinfo")
+                .build();
     }
 
 }
