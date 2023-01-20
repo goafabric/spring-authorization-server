@@ -10,8 +10,12 @@ docker run --pull always --name spring-auth-server --rm -p30200:30200 goafabric/
 # run native image arm
 docker run --pull always --name spring-auth-server --rm -p30200:30200 goafabric/spring-auth-server-native-arm64v8:1.0.1-SNAPSHOT -Xmx32m
 
-# endpoint
-http://127.0.0.1:30200/oauth2/auth?client_id=oauth2-proxy&response_type=code&scope=openid&state=state&redirect_uri=http://127.0.0.1:30200/
-
+# example redirect
 http://localhost:30200/oauth2/auth?client_id=oauth2-proxy&response_type=code&scope=openid&state=state&redirect_uri=http://localhost:30200/
+
+# example configuration for users & clients, via application.properties / environment variables, user:password
+
+spring.security.authorization.base-uri: "/oauth2"
+spring.security.authorization.clients: "oauth2-proxy:none"
+spring.security.authorization.users: "user1:user1,user2:user2,user3:user3"
 
