@@ -96,6 +96,7 @@ public class SecurityConfig {
                 .authorizationGrantType(AuthorizationGrantType.AUTHORIZATION_CODE)
                 .authorizationGrantType(AuthorizationGrantType.REFRESH_TOKEN)
                 .authorizationGrantType(AuthorizationGrantType.CLIENT_CREDENTIALS)
+                .authorizationGrantType(AuthorizationGrantType.JWT_BEARER)
                 //allowed redirect uris of your CLIENT, localhost ist forbidden in favour of 127.0.0.1, dns names otherwise work ...
                 .redirectUri("http://127.0.0.1:30200/")
                 .redirectUri("http://localhost:30200/")
