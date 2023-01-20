@@ -19,7 +19,7 @@ import java.util.List;
 import java.util.function.Consumer;
 
 @Configuration
-public class AuthServerConfig {
+public class AuthServerConfiguration {
     @Bean
     @Order(1)
     public SecurityFilterChain authorizationServerSecurityFilterChain(HttpSecurity http) throws Exception {
