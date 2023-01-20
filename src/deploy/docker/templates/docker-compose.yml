@@ -44,7 +44,7 @@ services:
 
   authserver:
     container_name: ${_Values_root_name}-authserver
-    image: goafabric/spring-auth-server${_Values_image_native}:1.0.0-SNAPSHOT
+    image: goafabric/spring-auth-server${_Values_image_native}:1.0.1-SNAPSHOT
     restart: 'no'
     ports:
       - "30200:30200"
