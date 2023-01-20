@@ -92,6 +92,10 @@ public class AuthorisationServerConfiguration {
             RegisteredClient registeredClient = authenticationContext.getRegisteredClient();
             String requestedRedirectUri = authorizationCodeRequestAuthentication.getRedirectUri();
 
+            if (registeredClient.getRedirectUris().contains("*")) {
+                return;
+            }
+
             // Use exact string matching when comparing client redirect URIs against pre-registered URIs
             if (!registeredClient.getRedirectUris().contains(requestedRedirectUri)) {
                 OAuth2Error error = new OAuth2Error(OAuth2ErrorCodes.INVALID_REQUEST);
