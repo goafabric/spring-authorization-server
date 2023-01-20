@@ -44,7 +44,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 @ExtendWith(SpringExtension.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @AutoConfigureMockMvc
-public class DefaultAuthorizationServerApplicationTests {
+public class ServerLoginIT {
 	private static final String REDIRECT_URI = "http://localhost:30200/";
 
 	private static final String AUTHORIZATION_REQUEST = UriComponentsBuilder
