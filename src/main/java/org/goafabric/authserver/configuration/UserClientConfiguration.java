@@ -73,16 +73,7 @@ public class UserClientConfiguration {
     @Bean
     OAuth2TokenCustomizer<JwtEncodingContext> jwtCustomizer() {
         return context -> {
-            //if (context.getTokenType() == OAuth2TokenType.ACCESS_TOKEN) {
-                /*
-                Authentication principal = context.getPrincipal();
-                Set<String> authorities = principal.getAuthorities().stream()
-                        .map(GrantedAuthority::getAuthority)
-                        .collect(Collectors.toSet());
-
-                 */
                 context.getClaims().claim("email", "user1@user1.de");
-            //}
         };
     }
 
