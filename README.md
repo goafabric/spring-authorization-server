@@ -3,6 +3,7 @@
 Simple In Memory OIDC compatible server based on spring boot.
 Can be configured by simple properties.
 Can run in native mode to only consume 30MB of RAM.
+Compatible with Oauth2Proxy
 
 # docker compose
 go to /src/deploy/docker and do "./stack up" or "./stack up -native"
