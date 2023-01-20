@@ -54,6 +54,7 @@ dependencies {
 
 	//test
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	testImplementation "net.sourceforge.htmlunit:htmlunit"
 }
 
 test {

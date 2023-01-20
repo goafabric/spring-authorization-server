@@ -19,6 +19,7 @@ import com.gargoylesoftware.htmlunit.Page;
 import com.gargoylesoftware.htmlunit.WebClient;
 import com.gargoylesoftware.htmlunit.WebResponse;
 import com.gargoylesoftware.htmlunit.html.HtmlButton;
+import com.gargoylesoftware.htmlunit.html.HtmlElement;
 import com.gargoylesoftware.htmlunit.html.HtmlInput;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
 import org.junit.jupiter.api.BeforeEach;
@@ -76,7 +77,6 @@ public class DefaultAuthorizationServerApplicationTests {
 		assertThat(signInResponse.getStatusCode()).isEqualTo(HttpStatus.NOT_FOUND.value());	// there is no "default" index page
 	}
 
-	/*
 	@Test
 	public void whenLoginFailsThenDisplayBadCredentials() throws IOException {
 		HtmlPage page = this.webClient.getPage("/");
@@ -100,7 +100,7 @@ public class DefaultAuthorizationServerApplicationTests {
 		// Log in
 		this.webClient.getOptions().setThrowExceptionOnFailingStatusCode(false);
 		this.webClient.getOptions().setRedirectEnabled(false);
-		signIn(this.webClient.getPage("/login"), "user1", "password");
+		signIn(this.webClient.getPage("/login"), "user1", "user1");
 
 		// Request token
 		WebResponse response = this.webClient.getPage(AUTHORIZATION_REQUEST).getWebResponse();
@@ -111,7 +111,7 @@ public class DefaultAuthorizationServerApplicationTests {
 		assertThat(location).contains("code=");
 	}
 
-	 */
+
 	private static <P extends Page> P signIn(HtmlPage page, String username, String password) throws IOException {
 		HtmlInput usernameInput = page.querySelector("input[name=\"username\"]");
 		HtmlInput passwordInput = page.querySelector("input[name=\"password\"]");
