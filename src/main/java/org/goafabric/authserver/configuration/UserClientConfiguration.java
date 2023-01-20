@@ -25,8 +25,6 @@ import java.util.UUID;
 @Slf4j
 public class UserClientConfiguration {
 
-    /* dynamic user defined props */
-
     @Bean
     public AuthorizationServerSettings authorizationServerSettings(@Value("${spring.security.base-endpoint}") String baseEndpoint) {
         //return AuthorizationServerSettings.builder().build();
@@ -70,7 +68,6 @@ public class UserClientConfiguration {
     }
 
     @Bean
-
     public UserDetailsService userDetailsService(@Value("${spring.security.identities:}") String identities) {
         List<UserDetails> userDetails = new ArrayList<>();
         Arrays.asList(identities.split(",")).forEach(identity -> {
