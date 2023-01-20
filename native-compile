@@ -1,3 +1,3 @@
 #!/bin/bash
 ./gradlew clean nativeCompile
-./build/native/nativeCompile/spring-authorization-server -Xmx32m
+./build/native/nativeCompile/spring-auth-server -Xmx32m
