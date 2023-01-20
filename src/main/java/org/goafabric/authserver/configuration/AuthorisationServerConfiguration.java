@@ -14,6 +14,7 @@ import org.springframework.security.oauth2.server.authorization.config.annotatio
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.LoginUrlAuthenticationEntryPoint;
 import org.springframework.security.web.util.matcher.RequestMatcher;
+import org.springframework.security.config.annotation.web.configurers.oauth2.server.resource.OAuth2ResourceServerConfigurer;
 
 import java.util.List;
 import java.util.function.Consumer;
@@ -31,7 +32,7 @@ public class AuthorisationServerConfiguration {
 
         return http
                 .exceptionHandling((exceptions) -> exceptions.authenticationEntryPoint(new LoginUrlAuthenticationEntryPoint("/login")))
-                //.oauth2ResourceServer(OAuth2ResourceServerConfigurer::jwt) // Accept access tokens for User Info and/or Client Registration
+                .oauth2ResourceServer(OAuth2ResourceServerConfigurer::jwt) // Accept access tokens for User Info and/or Client Registration
                 .build();
     }
 
