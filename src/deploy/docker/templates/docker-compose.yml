@@ -26,13 +26,14 @@ services:
       OAUTH2_PROXY_CLIENT_ID: "oauth2-proxy"
       OAUTH2_PROXY_SKIP_OIDC_DISCOVERY: "true"
 
-      OAUTH2_PROXY_REDIRECT_URL: "http://127.0.0.1:8080/oauth2/callback"
+#      OAUTH2_PROXY_REDIRECT_URL: "http://localhost:8080/oauth2/callback"
+      OAUTH2_PROXY_REDIRECT_URL: "http://localhost:4180/oauth2/callback"
 
-      OAUTH2_PROXY_OIDC_ISSUER_URL: "http://127.0.0.1:8081"
-      OAUTH2_PROXY_LOGIN_URL: "http://127.0.0.1:8081/oauth2/authorize"
+      OAUTH2_PROXY_OIDC_ISSUER_URL: "http://localhost:30200"
+      OAUTH2_PROXY_LOGIN_URL: "http://localhost:30200/oauth2/auth"
 
-      OAUTH2_PROXY_REDEEM_URL: "http://host.docker.internal:8081/oauth2/token"
-      OAUTH2_PROXY_OIDC_JWKS_URL: "http://host.docker.internal:8081/oauth2/jwks"
+      OAUTH2_PROXY_REDEEM_URL: "http://host.docker.internal:30200/oauth2/token"
+      OAUTH2_PROXY_OIDC_JWKS_URL: "http://host.docker.internal:30200/oauth2/certs"
 
       OAUTH2_PROXY_CLIENT_SECRET: none
       # docker run -ti --rm python:3-alpine python -c 'import secrets,base64; print(base64.b64encode(base64.b64encode(secrets.token_bytes(16))));'
@@ -41,14 +42,18 @@ services:
     networks:
       - ${_Values_root_name}-net
 
-#  authserver:
-#    container_name: ${_Values_root_name}-authserver
-#    image: goafabric/auth-server:3.0.1-SNAPSHOT
-#    restart: 'no'
-#    ports:
-#      - "8081:8081"
-#    networks:
-#      - ${_Values_root_name}-net
+  authserver:
+    container_name: ${_Values_root_name}-authserver
+    image: goafabric/spring-auth-server${_Values_image_native}:1.0.0-SNAPSHOT
+    restart: 'no'
+    ports:
+      - "30200:30200"
+    environment:
+      spring.security.authorization.base-uri: "/oauth2"
+      spring.security.authorization.clients: "oauth2-proxy:none"
+      spring.security.authorization.users: "user1:user1,user2:user2,user3:user3,user4:user4"
+    networks:
+      - ${_Values_root_name}-net
 
 
 volumes:
