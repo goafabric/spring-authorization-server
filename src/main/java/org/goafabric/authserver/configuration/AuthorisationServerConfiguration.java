@@ -25,13 +25,12 @@ public class AuthorisationServerConfiguration {
     public SecurityFilterChain authorizationServerSecurityFilterChain(HttpSecurity http) throws Exception {
         final OAuth2AuthorizationServerConfigurer authorizationServerConfigurer = new OAuth2AuthorizationServerConfigurer();
 
-        addCustomRedirectUriValidator(authorizationServerConfigurer);
         enableDefaultSecurity(http, authorizationServerConfigurer);
         enableOpenIdConnect(http);
+        addRelaxedRedirectUriValidator(authorizationServerConfigurer);
 
         return http
-                .exceptionHandling((exceptions) -> exceptions
-                        .authenticationEntryPoint(new LoginUrlAuthenticationEntryPoint("/login")))
+                .exceptionHandling((exceptions) -> exceptions.authenticationEntryPoint(new LoginUrlAuthenticationEntryPoint("/login")))
                 //.oauth2ResourceServer(OAuth2ResourceServerConfigurer::jwt) // Accept access tokens for User Info and/or Client Registration
                 .build();
     }
@@ -55,7 +54,7 @@ public class AuthorisationServerConfiguration {
                 .apply(authorizationServerConfigurer);
     }
 
-    private void addCustomRedirectUriValidator(OAuth2AuthorizationServerConfigurer authorizationServerConfigurer) {
+    private void addRelaxedRedirectUriValidator(OAuth2AuthorizationServerConfigurer authorizationServerConfigurer) {
         authorizationServerConfigurer
                 .authorizationEndpoint(authorizationEndpoint ->
                         authorizationEndpoint
@@ -73,7 +72,7 @@ public class AuthorisationServerConfiguration {
                     if (authenticationProvider instanceof OAuth2AuthorizationCodeRequestAuthenticationProvider) {
                         Consumer<OAuth2AuthorizationCodeRequestAuthenticationContext> authenticationValidator =
                                 // Override default redirect_uri validator
-                                new CustomRedirectUriValidator()
+                                new RelaxedRedirectUriValidator()
                                         // Reuse default scope validator
                                         .andThen(OAuth2AuthorizationCodeRequestAuthenticationValidator.DEFAULT_SCOPE_VALIDATOR);
 
@@ -84,7 +83,7 @@ public class AuthorisationServerConfiguration {
     }
 
     //Custom Validator that allows for wildcards and also localhost, in contrast of the standard one that strictly only allows complete uris and NO localhost
-    static class CustomRedirectUriValidator implements Consumer<OAuth2AuthorizationCodeRequestAuthenticationContext> {
+    static class RelaxedRedirectUriValidator implements Consumer<OAuth2AuthorizationCodeRequestAuthenticationContext> {
 
         @Override
         public void accept(OAuth2AuthorizationCodeRequestAuthenticationContext authenticationContext) {
