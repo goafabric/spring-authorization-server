@@ -26,7 +26,7 @@ import java.util.UUID;
 public class UserClientConfiguration {
 
     @Bean
-    public AuthorizationServerSettings authorizationServerSettings(@Value("${spring.security.base-endpoint}") String baseEndpoint) {
+    public AuthorizationServerSettings authorizationServerSettings(@Value("${spring.security.authorisation.base-uri}") String baseEndpoint) {
         //return AuthorizationServerSettings.builder().build();
         return AuthorizationServerSettings.builder()
                 .authorizationEndpoint(baseEndpoint + "/auth")
@@ -68,7 +68,7 @@ public class UserClientConfiguration {
     }
 
     @Bean
-    public UserDetailsService userDetailsService(@Value("${spring.security.identities:}") String identities) {
+    public UserDetailsService userDetailsService(@Value("${spring.security.authorisation.identities:}") String identities) {
         List<UserDetails> userDetails = new ArrayList<>();
         Arrays.asList(identities.split(",")).forEach(identity -> {
             userDetails.add(
