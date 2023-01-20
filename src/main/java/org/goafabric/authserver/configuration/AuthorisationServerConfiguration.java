@@ -83,6 +83,7 @@ public class AuthorisationServerConfiguration {
                 });
     }
 
+    //Custom Validator that allows for wildcards and also localhost, in contrast of the standard one that strictly only allows complete uris and NO localhost
     static class CustomRedirectUriValidator implements Consumer<OAuth2AuthorizationCodeRequestAuthenticationContext> {
 
         @Override
