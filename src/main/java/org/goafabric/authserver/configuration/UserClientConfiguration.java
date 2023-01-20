@@ -26,15 +26,19 @@ import java.util.UUID;
 public class UserClientConfiguration {
 
     @Bean
-    public RegisteredClientRepository registeredClientRepository() {
-        return new InMemoryRegisteredClientRepository(
-                createClient("oauth2-proxy"));
+    public RegisteredClientRepository registeredClientRepository(@Value("${spring.security.authorization.clients}") String clients) {
+        final List<RegisteredClient> clientRegistrations = new ArrayList<>();
+        Arrays.asList(clients.split(",")).forEach(client ->
+                clientRegistrations.add(createClient(client.split(":")[0], client.split(":")[1])));
+
+        return new InMemoryRegisteredClientRepository(clientRegistrations);
+        //return new InMemoryRegisteredClientRepository(createClient("oauth2-proxy", "none"));
     }
 
-    private static RegisteredClient createClient(String clientId) {
+    private static RegisteredClient createClient(String clientId, String secret) {
         RegisteredClient registeredClient = RegisteredClient.withId(UUID.randomUUID().toString())
                 .clientId(clientId)
-                .clientSecret("{noop}none")
+                .clientSecret("{noop}" + secret)
                 .clientAuthenticationMethod(ClientAuthenticationMethod.CLIENT_SECRET_BASIC)
                 .authorizationGrantType(AuthorizationGrantType.AUTHORIZATION_CODE)
                 .authorizationGrantType(AuthorizationGrantType.REFRESH_TOKEN)
@@ -50,13 +54,13 @@ public class UserClientConfiguration {
     }
 
     @Bean
-    public UserDetailsService userDetailsService(@Value("${spring.security.authorization.identities:}") String identities) {
+    public UserDetailsService userDetailsService(@Value("${spring.security.authorization.users}") String users) {
         List<UserDetails> userDetails = new ArrayList<>();
-        Arrays.asList(identities.split(",")).forEach(identity -> {
+        Arrays.asList(users.split(",")).forEach(user -> {
             userDetails.add(
                 User.withDefaultPasswordEncoder()
-                        .username(identity.split(":")[0])
-                        .password(identity.split(":")[1])
+                        .username(user.split(":")[0])
+                        .password(user.split(":")[1])
                         .roles("USER", "standard")
                         .build()
                 );

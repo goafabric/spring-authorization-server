@@ -19,4 +19,5 @@ logging:
     org.springframework.security: trace
 
 spring.security.authorization.base-uri: /oauth2
-spring.security.authorization.identities: "user1:user1,user2:user2,user3:user3"
+spring.security.authorization.clients: "oauth2-proxy:none"
+spring.security.authorization.users: "user1:user1,user2:user2,user3:user3"
