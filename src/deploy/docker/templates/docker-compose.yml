@@ -6,7 +6,7 @@ services:
     image: quay.io/oauth2-proxy/oauth2-proxy:v7.4.0
     command:
       - --email-domain=*
-      - --insecure-oidc-skip-issuer-verification=true
+#      - --insecure-oidc-skip-issuer-verification=true
     restart: 'no'
     ports:
       - "4180:4180"
@@ -27,10 +27,9 @@ services:
 
 #      OAUTH2_PROXY_REDIRECT_URL: "http://localhost:8080/oauth2/callback"
       OAUTH2_PROXY_REDIRECT_URL: "http://localhost:4180/oauth2/callback"
-
-      OAUTH2_PROXY_OIDC_ISSUER_URL: "http://localhost:30200"
       OAUTH2_PROXY_LOGIN_URL: "http://localhost:30200/oauth2/auth"
 
+      OAUTH2_PROXY_OIDC_ISSUER_URL: "http://host.docker.internal:30200"
       OAUTH2_PROXY_REDEEM_URL: "http://host.docker.internal:30200/oauth2/token"
       OAUTH2_PROXY_OIDC_JWKS_URL: "http://host.docker.internal:30200/oauth2/certs"
 
