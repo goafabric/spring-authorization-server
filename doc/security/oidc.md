@@ -50,3 +50,7 @@ echo access token is: $access_token
 
 # userinfo
 curl -v -H "Authorization: Bearer $access_token" "http://127.0.0.1:30200/oauth2/userinfo"
+                      
+# issuer
+curl http://localhost:30200/.well-known/openid-configuration
+curl http://kubernetes:30200/.well-known/openid-configuration
