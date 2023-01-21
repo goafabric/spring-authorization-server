@@ -33,7 +33,6 @@ public class UserClientConfiguration {
                 clientRegistrations.add(createClient(client.split(":")[0], client.split(":")[1])));
 
         return new InMemoryRegisteredClientRepository(clientRegistrations);
-        //return new InMemoryRegisteredClientRepository(createClient("oauth2-proxy", "none"));
     }
 
     private static RegisteredClient createClient(String clientId, String secret) {
@@ -69,9 +68,10 @@ public class UserClientConfiguration {
         return new InMemoryUserDetailsManager(userDetails);
     }
 
+    //add attributes like emails, and username to jwt for oauthproxy to work correctly, spring will not take care of that on its own
     @Bean
     OAuth2TokenCustomizer<JwtEncodingContext> jwtCustomizer() {
-        //https://www.appsdeveloperblog.com/add-roles-to-jwt-issued-by-new-spring-authorization-server/
+
         return context -> {
             final Authentication principal = context.getPrincipal();
             final Set<String> authorities = principal.getAuthorities().stream()
