@@ -16,7 +16,7 @@ curl -v -s -X POST $baseurl/oidc/realms/$realm/protocol/openid-connect/token \
 | jq --raw-output '.access_token' \
 )
 echo access token is: 
-echo $access_token
+echo $access_token                                                                      
 
 # jwt.io 
 https://jwt.io/
