@@ -4,6 +4,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -18,10 +19,8 @@ import org.springframework.security.oauth2.server.authorization.token.JwtEncodin
 import org.springframework.security.oauth2.server.authorization.token.OAuth2TokenCustomizer;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @Configuration
 @Slf4j
@@ -63,7 +62,7 @@ public class UserClientConfiguration {
                 User.withDefaultPasswordEncoder()
                         .username(user.split(":")[0])
                         .password(user.split(":")[1])
-                        .roles("USER", "standard")
+                        .roles("standard")
                         .build()
                 );
         });
@@ -74,8 +73,12 @@ public class UserClientConfiguration {
     OAuth2TokenCustomizer<JwtEncodingContext> jwtCustomizer() {
         //https://www.appsdeveloperblog.com/add-roles-to-jwt-issued-by-new-spring-authorization-server/
         return context -> {
-                context.getClaims().claim("email", "user1@user1.de");
-                context.getClaims().claim("preferred_username", "user1");
+            final Authentication principal = context.getPrincipal();
+            final Set<String> authorities = principal.getAuthorities().stream()
+                    .map(authority -> authority.getAuthority().replaceAll("ROLE_", "")).collect(Collectors.toSet());
+            context.getClaims().claim("roles", authorities);
+            context.getClaims().claim("email", principal.getName() + "@example.org");
+            context.getClaims().claim("preferred_username", principal.getName());
         };
     }
 
