@@ -72,6 +72,7 @@ public class UserClientConfiguration {
 
     @Bean
     OAuth2TokenCustomizer<JwtEncodingContext> jwtCustomizer() {
+        //https://www.appsdeveloperblog.com/add-roles-to-jwt-issued-by-new-spring-authorization-server/
         return context -> {
                 context.getClaims().claim("email", "user1@user1.de");
                 context.getClaims().claim("preferred_username", "user1");
