@@ -39,6 +39,8 @@ services:
 
     networks:
       - ${_Values_root_name}-net
+    depends_on:
+      - authserver
 
   authserver:
     container_name: ${_Values_root_name}-authserver
