@@ -11,11 +11,15 @@ curl -v -s -X POST $baseurl/oidc/realms/$realm/protocol/openid-connect/token \
 -d "username=$credentials" \
 -d "password=$credentials" \
 -d "grant_type=password" \
--d "client_id=callee-service" \
+-d "client_id=oauth2-proxy" \
 -d "scope=openid" \
 | jq --raw-output '.access_token' \
 )
-echo access token is: $access_token
+echo access token is: 
+echo $access_token
+
+# jwt.io 
+https://jwt.io/
 
 # userinfo
 curl -v -H "Authorization: Bearer $access_token" "$baseurl/oidc/realms/$realm/protocol/openid-connect/userinfo"
