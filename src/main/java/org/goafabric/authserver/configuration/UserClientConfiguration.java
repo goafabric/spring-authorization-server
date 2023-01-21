@@ -74,6 +74,7 @@ public class UserClientConfiguration {
     OAuth2TokenCustomizer<JwtEncodingContext> jwtCustomizer() {
         return context -> {
                 context.getClaims().claim("email", "user1@user1.de");
+                context.getClaims().claim("preferred_username", "user1");
         };
     }
 
