@@ -7,7 +7,6 @@ services:
     command:
       - --email-domain=*
       - --insecure-oidc-skip-issuer-verification=true
-#      - --insecure-oidc-allow-unverified-email=true
     restart: 'no'
     ports:
       - "4180:4180"
@@ -26,8 +25,8 @@ services:
       OAUTH2_PROXY_CLIENT_ID: "oauth2-proxy"
       OAUTH2_PROXY_SKIP_OIDC_DISCOVERY: "true"
 
-      OAUTH2_PROXY_REDIRECT_URL: "http://localhost:8080/oauth2/callback"
-#      OAUTH2_PROXY_REDIRECT_URL: "http://localhost:4180/oauth2/callback"
+#      OAUTH2_PROXY_REDIRECT_URL: "http://localhost:8080/oauth2/callback"
+      OAUTH2_PROXY_REDIRECT_URL: "http://localhost:4180/oauth2/callback"
 
       OAUTH2_PROXY_OIDC_ISSUER_URL: "http://localhost:30200"
       OAUTH2_PROXY_LOGIN_URL: "http://localhost:30200/oauth2/auth"
@@ -44,7 +43,7 @@ services:
 
   authserver:
     container_name: ${_Values_root_name}-authserver
-    image: goafabric/spring-auth-server${_Values_image_native}:1.0.1-SNAPSHOT
+    image: goafabric/spring-auth-server-native${_Values_server_arch}:1.0.1-SNAPSHOT
     restart: 'no'
     ports:
       - "30200:30200"
