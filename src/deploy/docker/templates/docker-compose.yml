@@ -25,17 +25,20 @@ services:
       OAUTH2_PROXY_CLIENT_ID: "oauth2-proxy"
       OAUTH2_PROXY_SKIP_OIDC_DISCOVERY: "true"
 
+      # secrets
+      OAUTH2_PROXY_CLIENT_SECRET: none
+      # docker run -ti --rm python:3-alpine python -c 'import secrets,base64; print(base64.b64encode(base64.b64encode(secrets.token_bytes(16))));'
+      OAUTH2_PROXY_COOKIE_SECRET: SvJIUgqBKxOYSxJwFREiOg==
+
+      # urls
 #      OAUTH2_PROXY_REDIRECT_URL: "http://localhost:8080/oauth2/callback"
       OAUTH2_PROXY_REDIRECT_URL: "http://localhost:4180/oauth2/callback"
       OAUTH2_PROXY_LOGIN_URL: "http://localhost:30200/oauth2/auth"
 
       OAUTH2_PROXY_OIDC_ISSUER_URL: "http://host.docker.internal:30200"
-      OAUTH2_PROXY_REDEEM_URL: "http://host.docker.internal:30200/oauth2/token"
       OAUTH2_PROXY_OIDC_JWKS_URL: "http://host.docker.internal:30200/oauth2/certs"
+      OAUTH2_PROXY_REDEEM_URL: "http://host.docker.internal:30200/oauth2/token"
 
-      OAUTH2_PROXY_CLIENT_SECRET: none
-      # docker run -ti --rm python:3-alpine python -c 'import secrets,base64; print(base64.b64encode(base64.b64encode(secrets.token_bytes(16))));'
-      OAUTH2_PROXY_COOKIE_SECRET: SvJIUgqBKxOYSxJwFREiOg==
 
     networks:
       - ${_Values_root_name}-net
