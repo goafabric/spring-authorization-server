@@ -1,5 +1,0 @@
-@startuml
-'https://plantuml.com/sequence-diagram
-
-participant hello_world
-@enduml
