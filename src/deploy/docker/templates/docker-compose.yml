@@ -31,8 +31,8 @@ services:
       OAUTH2_PROXY_COOKIE_SECRET: SvJIUgqBKxOYSxJwFREiOg==
 
       # urls
-      OAUTH2_PROXY_REDIRECT_URL: "http://localhost:8080/oidc/callback"
-#      OAUTH2_PROXY_REDIRECT_URL: "http://localhost:4180/oidc/callback"
+#      OAUTH2_PROXY_REDIRECT_URL: "http://localhost:8080/oauth2/callback"
+      OAUTH2_PROXY_REDIRECT_URL: "http://localhost:4180/oauth2/callback"
       OAUTH2_PROXY_LOGIN_URL: "http://localhost:30200/oidc/auth"
 
       OAUTH2_PROXY_OIDC_ISSUER_URL: "http://auth-server:30200"
