@@ -48,7 +48,7 @@ public class ServerLoginIT {
 	private static final String REDIRECT_URI = "http://localhost:30200/";
 
 	private static final String AUTHORIZATION_REQUEST = UriComponentsBuilder
-			.fromPath("/oauth2/auth")
+			.fromPath("/oidc/auth")
 			.queryParam("response_type", "code")
 			.queryParam("client_id", "oauth2-proxy")
 			.queryParam("scope", "openid")
