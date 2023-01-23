@@ -1,4 +1,5 @@
 # 1.0.2
+- base url changed to "oidc"
 
 # 1.0.1
 - email, preferred_username and roles added to jwt for oauth-proxy to work correctly
