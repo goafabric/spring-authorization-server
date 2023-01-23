@@ -1,7 +1,21 @@
 version: "3.7"
 
 services:
-  application:
+  auth-server:
+    container_name: ${_Values_root_name}-authserver
+    image: ${_Values_image_repository}${_Values_server_arch}:${_Values_image_tag}
+    restart: 'no'
+    ports:
+      - "${_Values_service_port}:${_Values_service_port}"
+    command: [ "-Xmx${_Values_resources_requests_memory}" ]
+    environment:
+      spring.security.authorization.base-uri: "/oidc"
+      spring.security.authorization.clients: "oauth2-proxy:none"
+      spring.security.authorization.users: "user1:user1,user2:user2,user3:user3,user4:user4"
+    networks:
+      - ${_Values_root_name}-net
+
+  oauth2-proxy:
     container_name: ${_Values_root_name}-application
     image: quay.io/oauth2-proxy/oauth2-proxy:v7.4.0
     command:
@@ -45,26 +59,11 @@ services:
     depends_on:
       - auth-server
 
-  auth-server:
-    container_name: ${_Values_root_name}-authserver
-    image: goafabric/spring-auth-server-native${_Values_server_arch}:1.0.2-SNAPSHOT
-    restart: 'no'
-    ports:
-      - "30200:30200"
-    command: ["-Xmx${_Values_resources_requests_memory}"]
-    environment:
-      spring.security.authorization.base-uri: "/oidc"
-      spring.security.authorization.clients: "oauth2-proxy:none"
-      spring.security.authorization.users: "user1:user1,user2:user2,user3:user3,user4:user4"
-    networks:
-      - ${_Values_root_name}-net
-
-
 volumes:
     tmp:
     applogs:
     pgdata:
 
 networks:
-  oauth2proxy-net:
+  auth-server-net:
     driver: bridge
