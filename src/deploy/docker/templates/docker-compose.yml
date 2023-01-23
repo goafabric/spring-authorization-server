@@ -31,13 +31,13 @@ services:
       OAUTH2_PROXY_COOKIE_SECRET: SvJIUgqBKxOYSxJwFREiOg==
 
       # urls
-      OAUTH2_PROXY_REDIRECT_URL: "http://localhost:8080/oauth2/callback"
-#      OAUTH2_PROXY_REDIRECT_URL: "http://localhost:4180/oauth2/callback"
-      OAUTH2_PROXY_LOGIN_URL: "http://localhost:30200/oauth2/auth"
+      OAUTH2_PROXY_REDIRECT_URL: "http://localhost:8080/oidc/callback"
+#      OAUTH2_PROXY_REDIRECT_URL: "http://localhost:4180/oidc/callback"
+      OAUTH2_PROXY_LOGIN_URL: "http://localhost:30200/oidc/auth"
 
       OAUTH2_PROXY_OIDC_ISSUER_URL: "http://auth-server:30200"
-      OAUTH2_PROXY_OIDC_JWKS_URL: "http://auth-server:30200/oauth2/certs"
-      OAUTH2_PROXY_REDEEM_URL: "http://auth-server:30200/oauth2/token"
+      OAUTH2_PROXY_OIDC_JWKS_URL: "http://auth-server:30200/oidc/certs"
+      OAUTH2_PROXY_REDEEM_URL: "http://auth-server:30200/oidc/token"
 
 
     networks:
@@ -53,7 +53,7 @@ services:
       - "30200:30200"
     command: ["-Xmx${_Values_resources_requests_memory}"]
     environment:
-      spring.security.authorization.base-uri: "/oauth2"
+      spring.security.authorization.base-uri: "/oidc"
       spring.security.authorization.clients: "oauth2-proxy:none"
       spring.security.authorization.users: "user1:user1,user2:user2,user3:user3,user4:user4"
     networks:
