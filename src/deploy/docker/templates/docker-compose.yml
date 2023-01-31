@@ -48,8 +48,8 @@ services:
       OAUTH2_PROXY_COOKIE_SECRET: SvJIUgqBKxOYSxJwFREiOg==
 
       # urls
-#      OAUTH2_PROXY_REDIRECT_URL: "http://localhost:8080/oauth2/callback"
-      OAUTH2_PROXY_REDIRECT_URL: "http://localhost:4180/oauth2/callback"
+      OAUTH2_PROXY_REDIRECT_URL: "http://localhost:8080/oauth2/callback"
+#      OAUTH2_PROXY_REDIRECT_URL: "http://localhost:4180/oauth2/callback"
       OAUTH2_PROXY_LOGIN_URL: "http://localhost:30200/oidc/auth"
 
       OAUTH2_PROXY_OIDC_ISSUER_URL: "http://auth-server-application:30200"
@@ -61,21 +61,21 @@ services:
     depends_on:
       - application
 
-  nginx:
-    container_name: ${_Values_root_name}-nginx
-    image: nginx:1.22.1
-    restart: 'no'
-    ports:
-      - 80:80
-    #      - 444:443
-    networks:
-      - ${_Values_root_name}-net
-    volumes:
-      - ./nginx/nginx.conf:/etc/nginx/nginx.conf
-      - ./nginx/ssl:/etc/ssl/
-    depends_on:
-      application:
-        condition: service_started
+#  nginx:
+#    container_name: ${_Values_root_name}-nginx
+#    image: nginx:1.22.1
+#    restart: 'no'
+#    ports:
+#      - 80:80
+#    #      - 444:443
+#    networks:
+#      - ${_Values_root_name}-net
+#    volumes:
+#      - ./nginx/nginx.conf:/etc/nginx/nginx.conf
+#      - ./nginx/ssl:/etc/ssl/
+#    depends_on:
+#      application:
+#        condition: service_started
 
 
 volumes:
