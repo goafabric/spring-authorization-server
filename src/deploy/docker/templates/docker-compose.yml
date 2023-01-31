@@ -9,6 +9,10 @@ services:
       - "${_Values_service_port}:${_Values_service_port}"
     command: [ "-Xmx${_Values_resources_requests_memory}" ]
     environment:
+      #application
+      server.forward-headers-strategy: FRAMEWORK
+
+      #auth
       spring.security.authorization.base-uri: "/oidc"
       spring.security.authorization.clients: "oauth2-proxy:none"
       spring.security.authorization.users: "user1:user1,user2:user2,user3:user3,user4:user4"
@@ -56,6 +60,23 @@ services:
       - ${_Values_root_name}-net
     depends_on:
       - auth-server
+
+  nginx:
+    container_name: ${_Values_root_name}-nginx
+    image: nginx:1.22.1
+    restart: 'no'
+    ports:
+      - 8081:80
+    #      - 444:443
+    networks:
+      - ${_Values_root_name}-net
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf
+      - ./nginx/ssl:/etc/ssl/
+    depends_on:
+      auth-server:
+        condition: service_started
+
 
 volumes:
     tmp:
