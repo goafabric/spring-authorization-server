@@ -36,7 +36,7 @@ curl -v -H "Authorization: Bearer $access_token" "https://kubernetes/callee/0/ca
 https://www.ibm.com/docs/en/was-liberty/base?topic=liberty-invoking-authorization-endpoint-openid-connect
 https://developers.onelogin.com/openid-connect
 
-# spring auth server not working request
+# spring auth server request
 export access_token=$(\
 curl -v -s -X POST http://127.0.0.1:30200/oidc/token \
 -H "Content-Type: application/x-www-form-urlencoded" \
@@ -48,7 +48,7 @@ curl -v -s -X POST http://127.0.0.1:30200/oidc/token \
 )
 echo access token is: $access_token
 
-# userinfo
+# userinfo not working
 curl -v -H "Authorization: Bearer $access_token" "http://127.0.0.1:30200/oidc/userinfo"
                       
 # issuer
