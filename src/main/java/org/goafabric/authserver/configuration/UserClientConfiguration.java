@@ -1,6 +1,5 @@
 package org.goafabric.authserver.configuration;
 
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -21,7 +20,6 @@ import java.util.List;
 import java.util.UUID;
 
 @Configuration
-@Slf4j
 public class UserClientConfiguration {
 
     @Bean

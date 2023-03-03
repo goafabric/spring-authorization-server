@@ -48,9 +48,9 @@ dependencies {
 	implementation "org.springframework.security:spring-security-oauth2-resource-server"
 
 	//code generation
-	compileOnly 'org.projectlombok:lombok'
-	annotationProcessor 'org.projectlombok:lombok'
-	testAnnotationProcessor 'org.projectlombok:lombok'
+	//compileOnly 'org.projectlombok:lombok'
+	//annotationProcessor 'org.projectlombok:lombok'
+	//testAnnotationProcessor 'org.projectlombok:lombok'
 
 	//test
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
