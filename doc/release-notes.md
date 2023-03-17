@@ -1,5 +1,5 @@
 # 1.0.3
-- upgrade to spring boot 3.0.3            
+- upgrade to spring boot 3.0.4            
 
 # 1.0.2
 - base url changed to "oidc"
