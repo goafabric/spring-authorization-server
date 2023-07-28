@@ -10,9 +10,6 @@ services:
       - "${_Values_service_port}:${_Values_service_port}"
     command: [ "-Xmx${_Values_resources_requests_memory}" ]
     environment:
-      #application
-      server.forward-headers-strategy: FRAMEWORK
-
       #auth
       spring.security.authorization.base-uri: "/"
       spring.security.authorization.clients: "oauth2-proxy:none"
