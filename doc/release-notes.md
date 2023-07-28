@@ -1,5 +1,5 @@
 # 1.0.3
-- upgrade to spring boot 3.0.9
+- upgrade to spring boot 3.1.2
 - proxy fixes
 
 # 1.0.2
